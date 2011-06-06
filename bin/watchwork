@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+STDERR.sync = STDOUT.sync = true
+
+lib = File.expand_path("../../lib", __FILE__)
+$:.unshift lib
+
+require 'watchwork'
+include Watchwork
+
+trap("INT") do
+  exit 0
+end
+
+clockfile = ARGV.shift
+
+unless clockfile
+  puts "usage: watchwork <clock.rb>"
+  exit 1
+end
+
+require File.expand_path(clockfile)
+
+run
